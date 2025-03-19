@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import api from "../utils/api";
 
 export default function SearchPlayersPage() {
   const searchParams = useSearchParams();
@@ -22,15 +23,11 @@ export default function SearchPlayersPage() {
     setPlayers([]);
 
     try {
-      const res = await fetch(
-        `http://localhost:5000/nba/players/search?search=${query}`
+      const res = await api.get(
+        `api/nba/players/search?search=${query}`
       );
 
-      if (!res.ok) {
-        throw new Error("Failed to fetch players.");
-      }
-
-      const data = await res.json();
+      const {data} = res;
       if (data.length === 0) {
         setError("No players found.");
       } else {

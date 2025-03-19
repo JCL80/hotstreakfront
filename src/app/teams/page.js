@@ -5,8 +5,7 @@ import api from "../utils/api";
 export default async function TeamsPage() {
   let teams = [];
  
-  // const res = await api.get("api/teams");
-  const res = await api.get("/api/teams/all"); // Adjust to your domain
+  const res = await api.get("/api/nba/teams/all"); // Adjust to your domain
   teams = res.data
 
   return (

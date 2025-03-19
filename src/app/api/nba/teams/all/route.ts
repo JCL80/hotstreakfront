@@ -10,7 +10,6 @@ if (!process.env.BALL_DONT_LIE_API_KEY) {
 const api = new BalldontlieAPI({ apiKey: process.env.BALL_DONT_LIE_API_KEY });
 
 export async function GET() {
-  console.log("Fetching NBA teams");
   try {
     const teams = await api.nba.getTeams();
     return NextResponse.json(teams.data);

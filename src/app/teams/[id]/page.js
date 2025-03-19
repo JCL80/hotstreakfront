@@ -3,9 +3,9 @@ import Link from "next/link";
 import api from "../../utils/api";
 
 async function getPlayers(teamId) {
-  const res = await api.get(`/teams/single/${teamId}`);
-  if (!res.ok) throw new Error("Failed to fetch players");
-  return res.json();
+  const res = await api.get(`api/nba/teams/single/${teamId}`);
+  if (!res.data) throw new Error("Failed to fetch players");
+  return res.data;
 }
 
 export default async function TeamPlayersPage({ params }) {

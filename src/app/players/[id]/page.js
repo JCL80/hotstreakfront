@@ -1,10 +1,8 @@
-import axios from "axios";
 import { playerImageUrl } from "../../constants/nbaPlayersMap";
+import api from "../../utils/api";
 
 async function getPlayer(playerId) {
-  const res = await axios(`http://localhost:5000/nba/players/${playerId}`, {
-    cache: "no-store",
-  });
+  const res = await api.get(`api/nba/players/single/${playerId}`);
   if (!res) throw new Error("Failed to fetch player data");
   return res.data;
 }
