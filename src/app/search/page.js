@@ -1,33 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import api from "../utils/api";
 
-export default function SearchPlayersPage() {
+function SearchPlayersContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  // Get initial query from URL
   const initialQuery = searchParams.get("search") || "";
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Function to fetch players
   async function fetchPlayers(query) {
     setLoading(true);
     setError("");
     setPlayers([]);
 
     try {
-      const res = await api.get(
-        `api/nba/players/search?search=${query}`
-      );
+      const res = await api.get(`api/nba/players/search?search=${query}`);
+      const { data } = res;
 
-      const {data} = res;
       if (data.length === 0) {
         setError("No players found.");
       } else {
@@ -40,31 +36,24 @@ export default function SearchPlayersPage() {
     }
   }
 
-  // Update results when query changes
   useEffect(() => {
     if (initialQuery) {
       fetchPlayers(initialQuery);
     }
   }, [initialQuery]);
 
-  // Handle search button click
   function handleSearch() {
     if (!searchQuery.trim()) {
       setError("Please enter a player name.");
       return;
     }
 
-    // Update URL with new search query
     router.push(`/search?search=${searchQuery}`);
   }
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-6">
-        Search NBA Players
-      </h1>
-
-      {/* Search Input */}
+      <h1 className="text-3xl font-bold text-center mb-6">Search NBA Players</h1>
       <div className="flex justify-center gap-4 mb-6">
         <input
           type="text"
@@ -81,13 +70,9 @@ export default function SearchPlayersPage() {
         </button>
       </div>
 
-      {/* Loading State */}
       {loading && <p className="text-center text-gray-600">Loading...</p>}
-
-      {/* Error Message */}
       {error && <p className="text-center text-red-500">{error}</p>}
 
-      {/* Players Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {players.map((player) => (
           <Link key={player.id} href={`/players/${player.id}`}>
@@ -96,9 +81,7 @@ export default function SearchPlayersPage() {
                 {player.first_name} {player.last_name}
               </h2>
               <p className="text-gray-600 text-sm">
-                {player.position
-                  ? `Position: ${player.position}`
-                  : "Position: N/A"}
+                {player.position ? `Position: ${player.position}` : "Position: N/A"}
                 {player.height ? ` | Height: ${player.height}` : ""}
                 {player.weight ? ` | Weight: ${player.weight} lbs` : ""}
                 {player.jersey_number ? ` | #${player.jersey_number}` : ""}
@@ -111,5 +94,13 @@ export default function SearchPlayersPage() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function SearchPlayersPage() {
+  return (
+    <Suspense fallback={<div>Loading search results...</div>}>
+      <SearchPlayersContent />
+    </Suspense>
   );
 }

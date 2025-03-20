@@ -7,23 +7,26 @@ if (!process.env.BALL_DONT_LIE_API_KEY) {
   throw new Error("BALL_DONT_LIE_API_KEY is not set in environment variables.");
 }
 
+
 const api = new BalldontlieAPI({ apiKey: process.env.BALL_DONT_LIE_API_KEY });
 
+type Params = Promise<{ id: string }>
+
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
-  const server_params = await params
-  const playerId = Number(server_params.id);
+  request: Request, 
+  segmentData: { params: Params }) {
+  const params = await segmentData.params
+  const id = params.id
+  const playerId = Number(id);
   // const playerId = Number(params.id);
 
-  // 1️⃣ Validate ID
+  // Validate ID
   if (!playerId) {
     return NextResponse.json({ error: "Invalid player ID." }, { status: 400 });
   }
 
   try {
-    // 2️⃣ Fetch player details
+    // Fetch player details
     const playerResponse = await api.nba.getPlayer(playerId);
 
     if (!playerResponse || !playerResponse.data) {
@@ -33,15 +36,13 @@ export async function GET(
     const player = playerResponse.data;
     const teamId = player.team?.id;
 
-    // 3️⃣ If no team, assume free agent
+    // If no team, assume free agent
     if (!teamId) {
       // Return player + empty recent_games
       return NextResponse.json({ player, recent_games: [] });
     }
 
-    // 4️⃣ Date setup
-    //    - yesterday is end_date
-    //    - 30 days before that is start_date
+    // Date setup: yesterday is end_date and 30 days before that is start_date
     const today = new Date();
     today.setDate(today.getDate() - 1);
     const endDate = today.toISOString().split("T")[0];
@@ -50,7 +51,7 @@ export async function GET(
     startDate.setDate(today.getDate() - 30);
     const formattedStartDate = startDate.toISOString().split("T")[0];
 
-    // 5️⃣ Fetch last 10 games within date range for the player’s team
+    // Fetch games within date range for the player’s team
     const gamesResponse = await api.nba.getGames({
       team_ids: [teamId],
       start_date: formattedStartDate,
@@ -68,10 +69,10 @@ export async function GET(
       return NextResponse.json({ player, last_game: null });
     }
 
-    // 6️⃣ Calculate hot/cold streak
+    // Calculate hot/cold streak
     const hotColdStreak = await getHotColdStreak(playerId);
 
-    // 7️⃣ Return final payload
+    // Return final payload
     return NextResponse.json({ player, hotColdStreak });
   } catch (error) {
     console.error("Error fetching player:", error);

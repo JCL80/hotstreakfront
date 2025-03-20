@@ -9,9 +9,12 @@ if (!process.env.BALL_DONT_LIE_API_KEY) {
   
 const api = new BalldontlieAPI({ apiKey: process.env.BALL_DONT_LIE_API_KEY });
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
-  const server_params = await params;
-  const id = server_params.id;
+type Params = Promise<{ id: string }>;
+
+export async function GET(req: Request, segmentData: { params: Params })  {
+  const params = await segmentData.params
+  
+  const id = params.id;
 
   const teamId =  Number(id);  
 
