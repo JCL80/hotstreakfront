@@ -1,102 +1,161 @@
-import Image from "next/image";
+import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Search, ChartLine, Settings, Info } from "lucide-react";
+import HeatFormula from "@/app/components/HeatFormula";
+import PlayerSpotlight from "@/app/components/PlayerSpotlight";
+import Upcoming from "@/app/components/Upcoming";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-background text-foreground p-8 flex flex-col items-center">
+      {/* Hero Section */}
+      <header className="relative w-full max-w-5xl text-center pt-12 py-8">
+        <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight text-foreground text-center">
+          Discover Who’s Heating Up 🔥 in the NBA
+        </h1>
+        <p className="mt-4 text-lg sm:text-xl text-muted-foreground text-center max-w-2xl mx-auto">
+          Check detailed hot and cold streaks for individual NBA players — based
+          on their most recent performances.
+        </p>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* ── Features ──────────────────────────────────────────── */}
+      <section className="w-full max-w-4xl mx-auto mt-8">
+        {/* Section Title */}
+        <h2 className="text-4xl font-bold text-foreground mb-6 text-center">
+          Features
+        </h2>
+
+        {/* Feature Cards */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 md:auto-rows-fr">
+          {/* Search Players */}
+          <Link href="/real-time-stats" className="group">
+            <Card className="relative h-full flex flex-col border border-border/60 shadow-sm bg-white/60 backdrop-blur transition transform duration-150 hover:-translate-y-1 hover:shadow-lg rounded-xl p-4">
+              <CardHeader className="flex-row items-center gap-3 pb-2">
+                <Search className="w-6 h-6 shrink-0" />
+                <div>
+                  <CardTitle className="text-base font-semibold text-orange-500">
+                    Search Players
+                  </CardTitle>
+                  <CardDescription className="text-xs">
+                    Find any active NBA player
+                  </CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent className="text-sm text-gray-600 flex-1">
+                Quickly look up any player and access their latest stats and
+                form.
+              </CardContent>
+            </Card>
+          </Link>
+
+          {/* Player Trends */}
+          <Link href="/real-time-stats" className="group">
+            <Card className="relative h-full flex flex-col border border-border/60 shadow-sm bg-white/60 backdrop-blur transition transform duration-150 hover:-translate-y-1 hover:shadow-lg rounded-xl p-4">
+              <CardHeader className="flex-row items-center gap-3 pb-2">
+                <ChartLine className="w-6 h-6 text-orange-500 shrink-0" />
+                <div>
+                  <CardTitle className="text-base font-semibold text-orange-500">
+                    Track Player Trends
+                  </CardTitle>
+                  <CardDescription className="text-xs">
+                    Analyze recent game performance
+                  </CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent className="text-sm text-gray-600 flex-1">
+                See how a player is trending over their latest games — hot or
+                cold.
+              </CardContent>
+            </Card>
+          </Link>
+
+          {/* Heat Index Formula */}
+          <Link href="/heat-index" className="group">
+            <Card className="relative h-full flex flex-col border border-border/60 shadow-sm bg-white/60 backdrop-blur transition transform duration-150 hover:-translate-y-1 hover:shadow-lg rounded-xl p-4">
+              <CardHeader className="flex-row items-center gap-3 pb-2 ">
+                <Info className="w-6 h-6 text-orange-500 shrink-0" />
+                <div>
+                  <CardTitle className="text-base font-semibold text-orange-500">
+                    Understand the Formula
+                  </CardTitle>
+                  <CardDescription className="text-xs">
+                    How Heat Index is calculated
+                  </CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent className="text-sm text-gray-600 flex-1">
+                See which stats are weighted and how we decide who&apos;s hot, cold,
+                or mid.
+              </CardContent>
+            </Card>
+          </Link>
+
+          {/* Customize Heat Index */}
+          <Link href="/real-time-stats" className="group">
+            <Card className="relative h-full flex flex-col border border-border/60 shadow-sm bg-white/60 backdrop-blur transition transform duration-150 hover:-translate-y-1 hover:shadow-lg rounded-xl p-4">
+              <CardHeader className="flex-row items-center gap-3 pb-2">
+                <Settings className="w-6 h-6  shrink-0" />
+                <div>
+                  <CardTitle className="text-base font-semibold text-orange-500">
+                    Customize Your Heat Index
+                  </CardTitle>
+                  <CardDescription className="text-xs">
+                    Adjust scoring weights
+                  </CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent className="text-sm text-gray-600 flex-1">
+                Modify the formula to prioritize the stats you care about most.
+              </CardContent>
+            </Card>
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+      <Suspense fallback={null}>
+        <PlayerSpotlight />
+      </Suspense>
+
+      {/* Upcoming Section */}
+      <Upcoming />
+
+      <HeatFormula />
+
+      <section className="w-full max-w-4xl mx-auto mt-24 mb-12 px-4 text-center">
+        <h2 className="text-4xl font-bold text-foreground text-center mb-4">
+          Ready to see who&apos;s heating up?
+        </h2>
+
+        <hr />
+
+        <div className=" rounded-xl p-8">
+          <p className="text-sm text-muted-foreground max-w-xl mx-auto mb-6">
+            Dive into recent performances and customize your own Heat Index to
+            track the players that matter most to you.
+          </p>
+          <Link href="/real-time-stats">
+            <button className="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-8 py-4 rounded-full text-base shadow-md transition flex items-center gap-2 mx-auto">
+              <Search className="w-5 h-5" />
+              Explore Player Stats
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="mt-20 text-center text-xs text-gray-500">
+        <p>
+          Currently in Alpha – player-focused stats only. Team leaderboards and
+          live updates coming soon!
+        </p>
+        <p className="mt-2">Built with ❤️ by an NBA fan </p>
       </footer>
     </div>
   );
