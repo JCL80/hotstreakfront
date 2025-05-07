@@ -1,5 +1,9 @@
 # HotStreak 🔥
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![CI](https://github.com/JCL80/hotstreakfront/actions/workflows/ci.yml/badge.svg)](https://github.com/JCL80/hotstreakfront/actions)
+[![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel)](https://hotstreakfront.vercel.app/)
+
 A modern web application that helps NBA fans track player performance trends and hot/cold streaks in real-time. Built with Next.js, TypeScript, and Tailwind CSS.
 
 ![HotStreak Preview](public/preview.png)
@@ -29,8 +33,8 @@ This is the frontend repository. The backend is a separate FastAPI service that 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/JCL80/hotstreak.git
-cd hotstreak
+git clone https://github.com/JCL80/hotstreakfront.git
+cd hotstreakfront
 ```
 
 2. Install dependencies:
@@ -38,16 +42,9 @@ cd hotstreak
 npm install
 ```
 
-3. Set up environment variables:
-Create a `.env.local` file with:
-```
-# Supabase Configuration
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_key
-
-# API Configuration
-NEXT_PUBLIC_API_URL=http://localhost:8000  # Your FastAPI backend URL
-NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000  # Your frontend URL
+3. Copy env template:
+```bash
+cp .env.example .env.local
 ```
 
 4. Run the development server:
@@ -57,6 +54,12 @@ npm run dev
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+6. Run tests and lint:
+```bash
+npm run lint
+npm run test
+```
+
 ## Contributing
 
 Contributions are welcome! Feel free to:
@@ -64,14 +67,20 @@ Contributions are welcome! Feel free to:
 - Suggest features
 - Submit pull requests
 
-## License
+## License & Support
 
-MIT License - feel free to use this code for your own projects!
+This project is licensed under the [MIT License](LICENSE).
+
+HotStreak™ was created by Jorge Cambra.  
+If you use it in a venture-funded or >$100k ARR product,  
+please consider sponsoring the project or arranging a support contract.
 
 ## About the Developer
 
-Built by Jorge Cambra - an NBA fan and full-stack developer passionate about sports analytics and modern web development.
+Built by Jorge Cambra - an NBA fan-nerd and full-stack developer passionate about sports analytics and modern web development.
 
 ---
 
 ⭐ Star this repo if you find it useful!
+
+---
