@@ -4,7 +4,6 @@ import Image from "next/image";
 
 async function getPlayers(teamId) {
   const res = await api.get(`api/nba/teams/single/${teamId}`);
-  // console.log("Fetched players:", res.data.players); // Debugging line
   if (!res.data) throw new Error("Failed to fetch players");
   return res.data;
 }
@@ -13,8 +12,6 @@ export default async function TeamPlayersPage({ params }) {
   const { id } = await params;
   const teamId = id;
   const {players , team} = await getPlayers(teamId);
-
-  // console.log("team" , team)
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">

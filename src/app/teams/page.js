@@ -14,7 +14,6 @@ export default function TeamsPage() {
     async function fetchTeams() {
       try {
         const res = await api.get("api/nba/teams/all");
-        // console.log("Fetched teams:", res.data); // Debugging line
         setTeams(res.data);
       } catch (err) {
         console.error("Error fetching teams:", err);

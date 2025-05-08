@@ -1,5 +1,5 @@
 // __tests__/fixtures/twoGames.ts
-import { GameLog } from '@/types/heatIndex';
+import { GameLog } from "@/types/api";
 
 export const g1: GameLog = {
   PTS: 20, AST: 4, REB: 5,

@@ -14,6 +14,7 @@ export const STAT_KEYS = [
   'tov',        // turnovers (negative)
   'pf',         // personal fouls (negative)
   'plus_minus', // raw +/-­
+  'ast_to_tov', // assist to turnover ratio
 ] as const
 
 export const STAT_LABELS: Record<StatKey, string> = {
@@ -32,6 +33,7 @@ export const STAT_LABELS: Record<StatKey, string> = {
   tov:         'Turnovers',
   pf:          'Fouls',
   plus_minus:  'Plus-Minus',
+  ast_to_tov:  'AST/TO',
 }
 
 export type StatKey = typeof STAT_KEYS[number]
@@ -54,6 +56,7 @@ export const STAT_MIN_MAX: Record<StatKey, [number, number]> = {
   tov:         [0,   6],
   pf:          [0,   6],
   plus_minus:  [-20,20],
+  ast_to_tov:  [0,   5],
 }
 
 export const NEGATIVE_STATS = new Set<StatKey>([

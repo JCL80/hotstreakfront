@@ -7,7 +7,6 @@ export async function POST(
   request: Request,
   segmentData: { params: Promise<{ id: string }> }
 ) {
-  // console.log("POST **** single player stats");
   const { id } = await segmentData.params;
   const nbaId = Number(id);
   if (!nbaId) {
@@ -20,24 +19,28 @@ export async function POST(
     const bio = await getPlayerBio(nbaId);
     const games = await getPlayerGames(nbaId);
 
-    const seasonAverages = getAverages(games)
+    // Season averages should always be regular season only
+    const regularSeasonGames = games.filter(game => !game.PLAYOFF);
+    const seasonAverages = getAverages(regularSeasonGames);
 
-    // console.log("seasonAvera" , seasonAverages)
+    // Recent games are filtered based on user preferences
+    const filteredGames = prefs.playoffOnly 
+      ? games.filter(game => game.PLAYOFF)
+      : regularSeasonGames;
 
-    const recentGames = games.slice(0, prefs.gamesWindow); 
+    const recentGames = filteredGames.slice(0, prefs.gamesWindow); 
+    // const olderGames = filteredGames.slice(prefs.gamesWindow);
+
+    console.log(`Total games: ${games.length}, Regular season: ${regularSeasonGames.length}, Filtered games: ${filteredGames.length}, Recent games: ${recentGames.length}`);
+
     const lastNGamesAvg = getAverages(recentGames);
-
-    // console.log("last n games average" , lastNGamesAvg)
     
-
     // 🎯 Personalized hot/cold streak
     const hotColdStreak = await getHotColdStreak(
       prefs,
       seasonAverages,
       lastNGamesAvg,
     );
-
-    // console.log("hot cold streak " , hotColdStreak)
 
     return NextResponse.json({
       playerBio : bio,

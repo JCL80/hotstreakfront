@@ -27,11 +27,6 @@ export default function PlayerProfileView({
     { stat: "FG%", change: 8.2 },
   ];
   
-
-  // <StatChangesTable statChanges={statChanges} />
-
-  // console.log("recentGames", recentGames);
-
   return (
     <div className="min-h-screen bg-background text-foreground p-8">
       <div className="max-w-6xl mx-auto">

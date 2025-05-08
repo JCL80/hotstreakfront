@@ -8,9 +8,6 @@ import {
   import { pct, num, ftPct } from "@/app/utils/format";
   
   export default function ComparisonCard({ seasonAverages, lastNGamesAvg }) {
-    // console.log("comparison card ****");
-    // console.log("Season avg", seasonAverages);
-    // console.log("last n ga", lastNGamesAvg);
   
     const formatReb = (reb, oreb) => `${num(reb)} (${num(oreb || 0)})`;
     const formatMadeAttempt = (made, attempt) => `${num(made)}/${num(attempt)}`;

@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function PlayerInfo({ playerBio }) {
-  console.log("playerBio", playerBio);
   return (
     <Card className="lg:col-span-1 rounded-2xl ">
       <CardContent className="p-6 flex flex-col items-center space-y-2">

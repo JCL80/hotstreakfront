@@ -1,11 +1,16 @@
 import { AdvancedStats, BoxStats, GameLog } from "@/types/api";
 
-export const trueShooting = (pts: number, fgm: number, fta: number) =>
-  pts / (2 * (fgm + 0.44 * fta));
+export const trueShooting = (pts: number, fga: number, fta: number) => {
+  const denominator = 2 * (fga + 0.44 * fta);
+  if (!denominator) return 0;
+  return Math.min(pts / denominator, 1); // Cap at 1.0 (100%)
+};
 
 export const effectiveFg = (fgm: number, fg3m: number, fga: number) =>
   (fgm + 0.5 * fg3m) / fga;
 
+export const assistToTurnover = (ast: number, tov: number) =>
+  tov ? ast / tov : 0;
 /** Convert NBA "MIN" field to decimal minutes (e.g. "34:12" → 34.2). */
 export const parseMinutes = (raw: unknown): number => {
   if (raw === null || raw === undefined) return 0;
@@ -44,9 +49,8 @@ export const parseMinutes = (raw: unknown): number => {
 };
 
 
-
 export const normalizeGameLog = (raw: Record<string, unknown>): GameLog => {
-  return {
+  const base = {
     PTS: Number(raw["PTS"]) || 0,
     AST: Number(raw["AST"]) || 0,
     REB: Number(raw["REB"]) || 0,
@@ -62,13 +66,21 @@ export const normalizeGameLog = (raw: Record<string, unknown>): GameLog => {
     PLUS_MINUS:
       raw["PLUS_MINUS"] !== undefined ? Number(raw["PLUS_MINUS"]) : undefined,
     MIN: parseMinutes(raw["MIN"]),
-    GAME_DATE : String(raw["GAME_DATE"] ?? ''),
-    MATCHUP   : String(raw["MATCHUP"]   ?? ''),
-    WL        : String(raw["WL"]        ?? ''),
-    FG_PCT    : Number(raw["FG_PCT"]    ?? 0),
-    FG3_PCT   : Number(raw["FG3_PCT"]   ?? 0),
-    FT_PCT    : Number(raw["FT_PCT"]    ?? 0),
-  };
+    GAME_DATE: String(raw["GAME_DATE"] ?? ''),
+    MATCHUP: String(raw["MATCHUP"] ?? ''),
+    WL: String(raw["WL"] ?? ''),
+    FG_PCT: Number(raw["FG_PCT"] ?? 0),
+    FG3_PCT: Number(raw["FG3_PCT"] ?? 0),
+    FT_PCT: Number(raw["FT_PCT"] ?? 0),
+    PLAYOFF: Boolean(raw["PLAYOFF"] ?? false)
+  } as GameLog;
+
+  // Only add these fields if they exist in the input
+  if ("OREB" in raw) base.OREB = Number(raw["OREB"]) || 0;
+  if ("DREB" in raw) base.DREB = Number(raw["DREB"]) || 0;
+  if ("PF" in raw) base.PF = Number(raw["PF"]) || 0;
+
+  return base;
 };
 
 export const getAverages = (games: GameLog[]): AdvancedStats => {
@@ -137,13 +149,14 @@ export const getAverages = (games: GameLog[]): AdvancedStats => {
     minutes: totals.minutes / c,
   };
 
-  const tsDen = box.fgm + 0.44 * box.fta;
-
   const finalStats: AdvancedStats = {
     ...box,
-    ts: tsDen ? trueShooting(box.pts, box.fgm, box.fta) * 100 : 0, // % True Shooting
+    ts: box.fga ? trueShooting(box.pts, box.fga, box.fta) * 100 : 0, // % True Shooting
     efg: box.fga ? effectiveFg(box.fgm, box.fg3m, box.fga) * 100 : 0, // % Effective FG
+    ast_to_tov: assistToTurnover(box.ast, box.tov), // Assist to Turnover ratio
   };
+
+  // console.log("finalStats" , finalStats)  
 
   return finalStats;
 };

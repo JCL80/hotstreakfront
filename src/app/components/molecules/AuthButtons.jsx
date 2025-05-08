@@ -16,7 +16,6 @@ export default function AuthButtons() {
 
   /* ---------- Logged-in state ---------- */
   if (user) {
-    // console.log("user", user.user_metadata);
     return (
       <div className="flex items-center gap-2">
         {/* avatar (click = profile later, so keep it focusable) */}

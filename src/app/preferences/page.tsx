@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
+import { Switch } from "@/components/ui/switch"
 import Link from "next/link"
 import { STAT_KEYS, STAT_LABELS } from "@/constants/statKeys"
 import type { StatKey } from "@/constants/statKeys"
@@ -77,7 +78,7 @@ export default function PreferencesPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="mb-8">
           <CardHeader>
             <CardTitle>Game Window</CardTitle>
             <CardDescription>
@@ -98,6 +99,29 @@ export default function PreferencesPage() {
               step={1}
               onValueChange={([val]) => updatePrefs({ gamesWindow: val })}
             />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Game Type</CardTitle>
+            <CardDescription>
+              Choose which games to include in calculations
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium">Playoff Games Only</p>
+                <p className="text-sm text-muted-foreground">
+                  Only include playoff games in calculations
+                </p>
+              </div>
+              <Switch
+                checked={prefs.playoffOnly}
+                onCheckedChange={(checked: boolean) => updatePrefs({ playoffOnly: checked })}
+              />
+            </div>
           </CardContent>
         </Card>
 

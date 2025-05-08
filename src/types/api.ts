@@ -52,6 +52,9 @@ export interface AdvancedStats extends BoxStats {
   raptor?: number;
   lebron?: number;
   darko?: number;
+
+  /** Assist to Turnover ratio */
+  ast_to_tov: number;
 }
 
 export interface GameLog {
@@ -75,9 +78,10 @@ export interface GameLog {
   FG_PCT?: number;
   FG3_PCT?: number;
   FT_PCT?: number;
-  OREB?: number; // <-- NEW
-  DREB?: number; // <-- NEW
+  OREB?: number;
+  DREB?: number;
   PF?: number;
+  PLAYOFF?: boolean;
 }
 
 /**
