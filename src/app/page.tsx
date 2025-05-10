@@ -153,7 +153,17 @@ export default function Home() {
           Currently in Alpha – player-focused stats only. Team leaderboards and
           live updates coming soon!
         </p>
-        <p className="mt-2">Built with ❤️ by an NBA fan </p>
+        <p className="mt-2">
+          Built with ❤️ by an NBA fan |{" "}
+          <a
+            href="https://github.com/jcl80/hotstreakfront"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-orange-500 hover:text-orange-600 transition-colors"
+          >
+            View on GitHub
+          </a>
+        </p>
       </footer>
     </div>
   );
