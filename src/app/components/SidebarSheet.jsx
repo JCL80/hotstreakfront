@@ -52,9 +52,6 @@ export default function SidebarSheet() {
           <DrawerLink href="/teams" icon={Users}>
             Teams
           </DrawerLink>
-          <DrawerLink href="/leaderboard" icon={Gauge}>
-            Leaderboard
-          </DrawerLink>
 
           <DrawerLink href="/preferences" icon={Settings}>Preferences </DrawerLink>
         </nav>

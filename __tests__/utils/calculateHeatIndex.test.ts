@@ -34,22 +34,22 @@ describe('calculateHeatIndex()', () => {
   // Create a mock stats object with all stats at their maximum values
   const maxStats: AdvancedStats = {
     ...minStats,
-    pts: 50,
-    ast: 12,
-    reb: 15,
-    oreb: 5,
-    dreb: 10,
-    stl: 5,
-    blk: 5,
-    tov: 6,
-    pf: 6,
-    plus_minus: 20,
-    ts: 75,
-    efg: 70,
-    fgp: 65,
-    tpp: 50,
-    ftp: 100,
-    ast_to_tov: 5
+    pts: 48, // 96% of 50
+    ast: 12, // 100% of 12
+    reb: 15, // 100% of 15
+    oreb: 5, // 100% of 5
+    dreb: 10, // 100% of 10
+    stl: 5, // 100% of 5
+    blk: 5, // 100% of 5
+    tov: 0, // 0% of 6 (negative stat, lower is better)
+    pf: 0, // 0% of 6 (negative stat, lower is better)
+    plus_minus: 20, // 100% of 20
+    ts: 75, // 100% of 75
+    efg: 70, // 100% of 70
+    fgp: 65, // 100% of 65
+    tpp: 50, // 100% of 50
+    ftp: 100, // 100% of 100
+    ast_to_tov: 5 // 100% of 5
   };
 
   // Create a mock weights object with all weights at 1
@@ -81,6 +81,10 @@ describe('calculateHeatIndex()', () => {
   });
 
   it('handles zero weights', () => {
+    // Test empty weights object (cast as HeatWeights to satisfy type checker)
+    expect(calculateHeatIndex(maxStats, {} as HeatWeights)).toBe(0);
+
+    // Test weights object with all zeros
     const zeroWeights: HeatWeights = {
       ...defaultWeights,
       pts: 0,

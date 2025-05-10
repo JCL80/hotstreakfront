@@ -72,7 +72,7 @@ export const normalizeGameLog = (raw: Record<string, unknown>): GameLog => {
     FG_PCT: Number(raw["FG_PCT"] ?? 0),
     FG3_PCT: Number(raw["FG3_PCT"] ?? 0),
     FT_PCT: Number(raw["FT_PCT"] ?? 0),
-    PLAYOFF: Boolean(raw["PLAYOFF"] ?? false)
+    PLAYOFF: raw["PLAYOFF"] === "true" || raw["PLAYOFF"] === true
   } as GameLog;
 
   // Only add these fields if they exist in the input
@@ -134,13 +134,13 @@ export const getAverages = (games: GameLog[]): AdvancedStats => {
     dreb: totals.dreb / c,
     fgm: totals.fgm / c,
     fga: totals.fga / c,
-    fgp: totals.fga ? (totals.fgm / totals.fga) * 100 : 0,
+    fgp: totals.fga ? (totals.fgm / totals.fga) : 0,
     fg3m: totals.fg3m / c,
     fg3a: totals.fg3a / c,
-    tpp: totals.fg3a ? (totals.fg3m / totals.fg3a) * 100 : 0,
+    tpp: totals.fg3a ? (totals.fg3m / totals.fg3a) : 0,
     ftm: totals.ftm / c,
     fta: totals.fta / c,
-    ftp: totals.fta ? (totals.ftm / totals.fta) * 100 : 0,
+    ftp: totals.fta ? (totals.ftm / totals.fta) : 0,
     stl: totals.stl / c,
     blk: totals.blk / c,
     tov: totals.tov / c,
@@ -151,8 +151,8 @@ export const getAverages = (games: GameLog[]): AdvancedStats => {
 
   const finalStats: AdvancedStats = {
     ...box,
-    ts: box.fga ? trueShooting(box.pts, box.fga, box.fta) * 100 : 0, // % True Shooting
-    efg: box.fga ? effectiveFg(box.fgm, box.fg3m, box.fga) * 100 : 0, // % Effective FG
+    ts: box.fga ? trueShooting(box.pts, box.fga, box.fta) : 0, // % True Shooting
+    efg: box.fga ? effectiveFg(box.fgm, box.fg3m, box.fga) : 0, // % Effective FG
     ast_to_tov: assistToTurnover(box.ast, box.tov), // Assist to Turnover ratio
   };
 

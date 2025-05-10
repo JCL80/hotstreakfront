@@ -9,8 +9,8 @@ export function calculateHeatIndex(
   stats: AdvancedStats,
   weights: HeatWeights
 ): number {
-  // If no weights are provided, return 0
-  if (!weights || Object.keys(weights).length === 0) {
+  // If no weights are provided or all weights are zero, return 0
+  if (!weights || Object.keys(weights).length === 0 || Object.values(weights).every(w => w === 0)) {
     return 0
   }
 

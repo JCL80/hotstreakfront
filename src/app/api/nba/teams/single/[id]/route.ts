@@ -12,9 +12,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const teamId = parseInt(rawId, 10);
 
   try {
-    const { data } = await axios.get(`${FASTAPI}/team/${teamId}/players`, {
-      params: { season: "2023-24" },
-    });
+    const { data } = await axios.get(`${FASTAPI}/teams/${teamId}/players`);
 
     // shape A
     if (data.team && data.players) {

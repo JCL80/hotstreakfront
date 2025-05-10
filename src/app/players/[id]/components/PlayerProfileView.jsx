@@ -13,6 +13,7 @@ import StatHorizontalComparison from "@/app/components/StatHorizontalComparison"
 import LatestGamesCards from "@/app/components/LatestGamesCards";
 import PlayerInfo from "@/app/components/PlayerInfo";
 import ComparisonCard from "@/app/components/ComparisonCard";
+import { Flame, Snowflake, TrendingUp } from "lucide-react";
 
 export default function PlayerProfileView({
   playerBio,
@@ -20,13 +21,10 @@ export default function PlayerProfileView({
   seasonAverages,
   lastNGamesAvg,
   recentGames,
+  prefs,
+  heatIndexes,
 }) {
-  const statChanges = [
-    { stat: "Points", change: 5.2 },
-    { stat: "Rebounds", change: -1.7 },
-    { stat: "FG%", change: 8.2 },
-  ];
-  
+
   return (
     <div className="min-h-screen bg-background text-foreground p-8">
       <div className="max-w-6xl mx-auto">
@@ -47,11 +45,22 @@ export default function PlayerProfileView({
             >
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  {hotColdStreak.status === "Hot"
-                    ? "Hot Streak"
-                    : hotColdStreak.status === "Cold"
-                    ? "Cold Streak"
-                    : "📊 Neutral"}
+                  {hotColdStreak.status === "Hot" ? (
+                    <>
+                      <Flame className="w-5 h-5 text-orange-500" />
+                      Hot Streak
+                    </>
+                  ) : hotColdStreak.status === "Cold" ? (
+                    <>
+                      <Snowflake className="w-5 h-5 text-blue-500" />
+                      Cold Streak
+                    </>
+                  ) : (
+                    <>
+                      <TrendingUp className="w-5 h-5 text-muted-foreground" />
+                      📊 Neutral
+                    </>
+                  )}
                   <span className="text-sm font-normal text-muted-foreground">
                     (Difference: {hotColdStreak.difference})
                   </span>
@@ -68,6 +77,8 @@ export default function PlayerProfileView({
             <ComparisonCard
               seasonAverages={seasonAverages}
               lastNGamesAvg={lastNGamesAvg}
+              prefs={prefs}
+              heatIndexes={heatIndexes}
             />
           </div>
         </div>
@@ -104,17 +115,23 @@ export default function PlayerProfileView({
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <StatComparisonChart />
+              <StatComparisonChart 
+                seasonAverages={seasonAverages}
+                lastNGamesAvg={lastNGamesAvg}
+              />
             </CardContent>
           </Card>
         </div>
 
-        <div className="mt-6 mb-">
+        <div className="mt-6 mb-4">
           <p className="text-muted-foreground text-sm">
             Simple ups and downs aggregation table
           </p>
         </div>
-        <StatsChangesTable statChanges={statChanges} />
+        <StatsChangesTable 
+          seasonAverages={seasonAverages}
+          lastNGamesAvg={lastNGamesAvg}
+        />
       </div>
     </div>
   );

@@ -15,8 +15,9 @@ export default function StatHorizontalComparison({ seasonAverages, lastNGamesAvg
   ];
 
   const formatStat = (key, value) => {
-    if (key.includes("pct")) {
-      return `${value.toFixed(1)}%`;
+    // Handle percentage fields that come in 0-1 format
+    if (key === "fgp" || key === "tpp" || key === "ftp" || key === "ts" || key === "efg") {
+      return `${(value * 100).toFixed(1)}%`;
     }
     return value.toFixed(1);
   };

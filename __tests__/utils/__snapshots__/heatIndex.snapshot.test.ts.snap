@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`calculateHeatIndex snapshots matches snapshot – counting‑stats weighting 1`] = `48`;
+
+exports[`calculateHeatIndex snapshots matches snapshot – shooting‑only weighting 1`] = `87`;

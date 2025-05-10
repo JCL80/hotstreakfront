@@ -34,7 +34,7 @@ export default function HeatFormula() {
           </p>
 
           <div className="flex justify-center">
-            <Link href="/how-it-works">
+            <Link href="/heat-index">
               <Button className="bg-orange-600 hover:bg-orange-700 text-white text-sm">
                 Learn More About the Formula
               </Button>

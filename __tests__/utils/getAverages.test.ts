@@ -1,6 +1,6 @@
 // __tests__/utils/getAverages.test.ts
 import { getAverages } from '@/services/playerStats';
-import { g1, g2 } from '../fixtures/twoGames';
+import { g1, g2 } from '../../__fixtures__/twoGames';
 
 describe('getAverages()', () => {
   const avg = getAverages([g1, g2]);   // 2-game sample
@@ -12,10 +12,10 @@ describe('getAverages()', () => {
 
   it('derives shooting percentages', () => {
     // fgp = total FGM / total FGA
-    const expFGP = (g1.FGM + g2.FGM) / (g1.FGA + g2.FGA) * 100;
+    const expFGP = (g1.FGM + g2.FGM) / (g1.FGA + g2.FGA);
     expect(avg.fgp).toBeCloseTo(expFGP, 4);
 
-    const expTpp = (g1.FG3M + g2.FG3M) / (g1.FG3A + g2.FG3A) * 100;
+    const expTpp = (g1.FG3M + g2.FG3M) / (g1.FG3A + g2.FG3A);
     expect(avg.tpp).toBeCloseTo(expTpp, 4);
   });
 

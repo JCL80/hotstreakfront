@@ -16,9 +16,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground p-8 flex flex-col items-center">
       {/* Hero Section */}
-      <header className="relative w-full max-w-5xl text-center pt-12 py-8">
+      <header id="search-section" className="relative w-full max-w-5xl text-center pt-12 py-8">
         <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight text-foreground text-center">
-          Discover Who’s Heating Up 🔥 in the NBA
+          Discover Who&apos;s Heating Up 🔥 in the NBA
         </h1>
         <p className="mt-4 text-lg sm:text-xl text-muted-foreground text-center max-w-2xl mx-auto">
           Check detailed hot and cold streaks for individual NBA players — based
@@ -36,7 +36,7 @@ export default function Home() {
         {/* Feature Cards */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 md:auto-rows-fr">
           {/* Search Players */}
-          <Link href="/real-time-stats" className="group">
+          <Link href="#search-section" className="group">
             <Card className="relative h-full flex flex-col border border-border/60 shadow-sm bg-white/60 backdrop-blur transition transform duration-150 hover:-translate-y-1 hover:shadow-lg rounded-xl p-4">
               <CardHeader className="flex-row items-center gap-3 pb-2">
                 <Search className="w-6 h-6 shrink-0" />
@@ -57,34 +57,32 @@ export default function Home() {
           </Link>
 
           {/* Player Trends */}
-          <Link href="/real-time-stats" className="group">
-            <Card className="relative h-full flex flex-col border border-border/60 shadow-sm bg-white/60 backdrop-blur transition transform duration-150 hover:-translate-y-1 hover:shadow-lg rounded-xl p-4">
-              <CardHeader className="flex-row items-center gap-3 pb-2">
-                <ChartLine className="w-6 h-6 text-orange-500 shrink-0" />
-                <div>
-                  <CardTitle className="text-base font-semibold text-orange-500">
-                    Track Player Trends
-                  </CardTitle>
-                  <CardDescription className="text-xs">
-                    Analyze recent game performance
-                  </CardDescription>
-                </div>
-              </CardHeader>
-              <CardContent className="text-sm text-gray-600 flex-1">
-                See how a player is trending over their latest games — hot or
-                cold.
-              </CardContent>
-            </Card>
-          </Link>
+          <Card className="relative h-full flex flex-col border border-border/60 shadow-sm bg-white/60 backdrop-blur transition transform duration-150 hover:-translate-y-1 hover:shadow-lg rounded-xl p-4">
+            <CardHeader className="flex-row items-center gap-3 pb-2">
+              <ChartLine className="w-6 h-6 text-orange-500 shrink-0" />
+              <div>
+                <CardTitle className="text-base font-semibold text-orange-500">
+                  Track Player Trends
+                </CardTitle>
+                <CardDescription className="text-xs">
+                  Analyze recent game performance
+                </CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent className="text-sm text-gray-600 flex-1">
+              See how a player is trending over their latest games — hot or
+              cold.
+            </CardContent>
+          </Card>
 
           {/* Heat Index Formula */}
           <Link href="/heat-index" className="group">
             <Card className="relative h-full flex flex-col border border-border/60 shadow-sm bg-white/60 backdrop-blur transition transform duration-150 hover:-translate-y-1 hover:shadow-lg rounded-xl p-4">
-              <CardHeader className="flex-row items-center gap-3 pb-2 ">
+              <CardHeader className="flex-row items-center gap-3 pb-2">
                 <Info className="w-6 h-6 text-orange-500 shrink-0" />
                 <div>
                   <CardTitle className="text-base font-semibold text-orange-500">
-                    Understand the Formula
+                    Learn More About the Formula
                   </CardTitle>
                   <CardDescription className="text-xs">
                     How Heat Index is calculated
@@ -99,10 +97,10 @@ export default function Home() {
           </Link>
 
           {/* Customize Heat Index */}
-          <Link href="/real-time-stats" className="group">
+          <Link href="/preferences" className="group">
             <Card className="relative h-full flex flex-col border border-border/60 shadow-sm bg-white/60 backdrop-blur transition transform duration-150 hover:-translate-y-1 hover:shadow-lg rounded-xl p-4">
               <CardHeader className="flex-row items-center gap-3 pb-2">
-                <Settings className="w-6 h-6  shrink-0" />
+                <Settings className="w-6 h-6 shrink-0" />
                 <div>
                   <CardTitle className="text-base font-semibold text-orange-500">
                     Customize Your Heat Index
@@ -140,7 +138,7 @@ export default function Home() {
             Dive into recent performances and customize your own Heat Index to
             track the players that matter most to you.
           </p>
-          <Link href="/real-time-stats">
+          <Link href="#search-section">
             <button className="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-8 py-4 rounded-full text-base shadow-md transition flex items-center gap-2 mx-auto">
               <Search className="w-5 h-5" />
               Explore Player Stats

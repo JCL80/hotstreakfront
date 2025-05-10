@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { usePrefs } from "@/hooks/usePrefs";
 import PlayerProfileView from "./components/PlayerProfileView"; // Extract UI to a component
@@ -10,8 +10,12 @@ export default function PlayerPage() {
   const { prefs, loading } = usePrefs();
   const { id } = useParams();
   const [data, setData] = useState(null);
+  const fetchedOnce = useRef(false);         
 
   useEffect(() => {
+    if (loading || fetchedOnce.current) return; // skip if still loading prefs or already fetched
+    fetchedOnce.current = true;
+
     if (!loading && prefs) {
       fetch(`/api/nba/players/single/${id}`, {
         method: "POST",
@@ -34,7 +38,8 @@ export default function PlayerPage() {
       seasonAverages={data.seasonAverages}
       lastNGamesAvg={data.lastNGamesAvg}
       recentGames={data.recentGames}
-      
+      prefs={data.prefs}
+      heatIndexes={data.heatIndexes}
     />
   );
 }

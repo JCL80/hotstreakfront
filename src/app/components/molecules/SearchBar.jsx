@@ -18,6 +18,7 @@ export default function SearchBar() {
         onChange={e => setQ(e.target.value)}
         onKeyDown={e => e.key === 'Enter' && go()}
         placeholder="Search players…"
+        data-search-bar
         /* note: right-padding leaves room for the icon */
         className="w-full pl-4 pr-10 py-3 rounded-full border border-gray-300
                    bg-white/70 backdrop-blur-sm

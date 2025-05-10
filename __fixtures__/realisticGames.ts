@@ -65,10 +65,12 @@ export const expectedJokicAverages = {
   tov: 3.0,        // (4 + 2 + 3) / 3
   plus_minus: 11.67, // (15 + 8 + 12) / 3
   minutes: 36.0,    // (36 + 34 + 38) / 3
-  fgp: 64.81,      // Total makes/attempts: (35/54) * 100
-  tpp: 44.44,      // Total 3P makes/attempts: (4/9) * 100
-  ftp: 84.62,      // Total FT makes/attempts: (11/13) * 100
-  ts: 71.17,       // Points / (2 * (FGA + 0.44 * FTA)) * 100
-  efg: 68.52,      // (FGM + 0.5 * 3PM) / FGA * 100
+  fgp: 0.6481,  
+  tpp: 0.4444,  
+  ftp: 0.8462, 
+  ts: 0.7117,  
+  efg: 0.6852,   
   ast_to_tov: 4.11 // Total assists / Total turnovers: 37/9
 }; 
+
+export const jokicSeasonAvg = expectedJokicAverages;

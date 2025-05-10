@@ -36,8 +36,8 @@ export default function HeatIndexPage() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                The Heat Index represents a player’s current performance streak
-                based on the stats you value most. It’s designed to be
+                The Heat Index represents a player&apos;s current performance streak
+                based on the stats you value most. It&apos;s designed to be
                 intuitive for new users while remaining fully customizable as
                 you explore and refine your own metric.
               </p>
@@ -76,6 +76,11 @@ export default function HeatIndexPage() {
                   <code>heatIndex = clamp(average × 100, 0, 100)</code>
                 </li>
               </ol>
+              <div className="mt-6 text-center">
+                <Link href="/heat-index-examples" className="text-orange-600 hover:text-orange-700 font-medium">
+                  See a detailed example calculation →
+                </Link>
+              </div>
             </CardContent>
           </Card>
 

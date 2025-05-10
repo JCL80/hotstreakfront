@@ -6,10 +6,15 @@ import {
     CardTitle,
   } from "@/components/ui/card";
   import { pct, num } from "@/app/utils/format";
+  import { trueShooting, effectiveFg } from "@/services/playerStats";
   
   export default function GameCard({ game }) {
     const rebDisplay = `${game.REB} (${game.OREB || 0})`;
-    const tsPctDisplay = game.TS_PCT ? (game.TS_PCT * 100).toFixed(1) : "N/A";
+    
+    // Calculate TS% and eFG% using the service methods
+    const tsPct = trueShooting(game.PTS, game.FGA, game.FTA) * 100;
+    const efgPct = effectiveFg(game.FGM, game.FG3M, game.FGA) * 100;
+    const astToTovDisplay = game.AST && game.TOV ? (game.AST / game.TOV).toFixed(2) : "N/A";
   
     const mainStats = [
       ["MIN", num(game.MIN, 0)],
@@ -30,7 +35,9 @@ import {
       ["3P%", pct(game.FG3_PCT * 100)],
       ["FT", `${game.FTM}/${game.FTA}`],
       ["FT%", pct(game.FT_PCT * 100)],
-    //   ["TS%", tsPctDisplay],
+      ["TS%", pct(tsPct)],
+      ["eFG%", pct(efgPct)],
+      ["AST/TO", astToTovDisplay],
     ];
   
     return (

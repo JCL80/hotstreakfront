@@ -27,17 +27,19 @@ export default function TeamsPage() {
   }, []);
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">NBA Teams</h1>
-      {loading ? (
-        <Loading />
-      ) : error ? (
-        <p className="text-red-500">{error}</p>
-      ) : (
-        <ul className="mt-4">
-          <TeamDisplay teams={teams} />
-        </ul>
-      )}
+    <div className="min-h-screen bg-background text-foreground p-8">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold text-center mb-8">NBA Teams</h1>
+        {loading ? (
+          <Loading />
+        ) : error ? (
+          <p className="text-red-500">{error}</p>
+        ) : (
+          <div className="mt-4">
+            <TeamDisplay teams={teams} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

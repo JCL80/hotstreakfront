@@ -25,7 +25,8 @@ describe('normalizeGameLog()', () => {
       FT_PCT: "100.0",
       OREB: "2",
       DREB: "8",
-      PF: "3"
+      PF: "3",
+      PLAYOFF: "false"
     };
 
     const normalized = normalizeGameLog(rawGame);
@@ -53,7 +54,8 @@ describe('normalizeGameLog()', () => {
       FT_PCT: 100.0,
       OREB: 2,
       DREB: 8,
-      PF: 3
+      PF: 3,
+      PLAYOFF: false
     });
   });
 
@@ -88,7 +90,8 @@ describe('normalizeGameLog()', () => {
       WL: "",
       FG_PCT: 0,
       FG3_PCT: 0,
-      FT_PCT: 0
+      FT_PCT: 0,
+      PLAYOFF: false
     });
   });
 

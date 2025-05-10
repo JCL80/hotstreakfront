@@ -1,5 +1,5 @@
 import { getAverages } from '@/services/playerStats';
-import { jokicGames, expectedJokicAverages } from '../fixtures/realisticGames';
+import { jokicGames, expectedJokicAverages } from '../../__fixtures__/realisticGames';
 
 describe('getAverages() with realistic NBA data', () => {
   const actualAverages = getAverages(jokicGames);
